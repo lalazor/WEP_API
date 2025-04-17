@@ -1,4 +1,7 @@
+using complete_guide_to_aspnetcore_web_api.Data.Services;
+using CompleteGuideToAspNetCoreWebApi.Data.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace complete_guide_to_aspnetcore_web_api.Controllers
 {
@@ -6,6 +9,14 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
+        public BooksService _booksService;
+        public BooksController(BooksService booksService)
+        {
+            _booksService = booksService;
+        }
+        
+
+
         // GET: api/Books
         [HttpGet]
         public IActionResult GetAllBooks()
@@ -28,16 +39,20 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
         }
 
         // POST: api/Books
-        [HttpPost]
-        public IActionResult CreateBook([FromBody] string book)
+        [HttpPost("add-book")]
+        public IActionResult AddBook([FromBody] BookVM book)
         {
-            // Replace with actual logic to create a book
-            if (string.IsNullOrEmpty(book))
-            {
-                return BadRequest("Book cannot be empty.");
-            }
 
-            return CreatedAtAction(nameof(GetBookById), new { id = 1 }, book); // Example response
+            _booksService.AddBook(book);
+
+            return Ok();
+            // Replace with actual logic to create a book
+            // if (book == null || string.IsNullOrEmpty(book.Title))
+            // {
+            //     return BadRequest("Book cannot be empty.");
+            // }
+
+            // return CreatedAtAction(nameof(GetBookById), new { id = 1 }, book); // Example response
         }
 
         // PUT: api/Books/{id}

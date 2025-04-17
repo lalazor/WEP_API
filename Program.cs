@@ -2,6 +2,8 @@ using complete_guide_to_aspnetcore_web_api.Data;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CompleteGuideToAspNetCoreWebApi.Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using complete_guide_to_aspnetcore_web_api.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +16,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v2", new OpenApiInfo { Title = "My API", Version = "v2" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API V1", Version = "v1" });
 });
+
+builder.Services.AddTransient<BooksService>();
 
 var app = builder.Build();
 
@@ -30,7 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
 }
 
