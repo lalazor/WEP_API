@@ -1,6 +1,7 @@
 using complete_guide_to_aspnetcore_web_api.Data;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using CompleteGuideToAspNetCoreWebApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+AppDbInitializer.Seed(app); 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,7 +40,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+
 app.Run();
+
+// Call the seed method to initialize the database with data
 
 
 

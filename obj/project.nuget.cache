@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Upe7q0q8DSQ=",
+  "dgSpecHash": "e28qaP6s9Rg=",
   "success": true,
   "projectFilePath": "/Users/szilagyilaszlo/Lala/Dev/Udemy/MVC course/WEB_API/complete-guide-to-aspnetcore-web-api/my-books.csproj",
   "expectedPackageFiles": [
@@ -91,16 +91,5 @@
     "/Users/szilagyilaszlo/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/Users/szilagyilaszlo/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "my-books depends on Microsoft.AspNetCore.OpenApi (>= 8.1.1) but Microsoft.AspNetCore.OpenApi 8.1.1 was not found. Microsoft.AspNetCore.OpenApi 9.0.0 was resolved instead.",
-      "libraryId": "Microsoft.AspNetCore.OpenApi",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    }
-  ]
+  "logs": []
 }
