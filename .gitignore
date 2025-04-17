@@ -1,0 +1,19 @@
+# Kizárt mappák
+bin/
+obj/
+
+# VS Code fájlok
+.vscode/
+*.code-workspace
+
+# Futtatás közbeni fájlok
+*.db
+*.log
+
+# User-specifikus beállítások
+*.user
+*.suo
+
+# Egyéb buildeléssel keletkező fájlok
+*.dll
+*.exe
