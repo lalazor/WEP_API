@@ -22,22 +22,33 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
             return _context.Books.FirstOrDefault(b => b.Id == id) 
                    ?? throw new KeyNotFoundException($"Book with ID {id} not found.");
         }
-        public void AddBook(BookVM book)
+        public void AddBookWithAuthors(BookVM book)
         {
             var newBook = new Book
             {
                 Title = book.Title,
-                Author = book.Author,
                 Description = book.Description,
                 Genre = book.Genre,
                 DateRead = book.IsRead ? book.DateRead : null,
                 IsRead = book.IsRead,
                 Rate = book.IsRead && book.Rate.HasValue ? book.Rate.Value : null,
                 CoverURL = book.CoverURL,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                PublisherId = book.PublisherId,
             };
             _context.Books.Add(newBook);
             _context.SaveChanges();
+
+            foreach (var authorId in book.AuthorIds)
+            {
+                var _bookAuthor = new BookAuthor()
+                {
+                    BookId = newBook.Id,
+                    AuthorId = authorId
+                };
+                _context.BookAuthors.Add(_bookAuthor);
+                _context.SaveChanges();
+            }
         }
         public Book UpdateBookById(int bookId, BookVM book)
         {
@@ -47,7 +58,6 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
                 throw new KeyNotFoundException($"Book with ID {bookId} not found.");
             }
             _existingBook.Title = book.Title;
-            _existingBook.Author = book.Author;
             _existingBook.Description = book.Description;
             _existingBook.Genre = book.Genre;
             _existingBook.DateRead = book.IsRead ? book.DateRead : null;

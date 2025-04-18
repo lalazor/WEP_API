@@ -27,8 +27,8 @@ namespace CompleteGuideToAspNetCoreWebApi.Data
             {
                 // Add initial data to the database
                 context.Books.AddRange(
-                    new Book { Title = "Book 10", Description = "Description 1", IsRead = false, Genre = "Fiction", Author = "Author 1", CoverURL = null, DateRead = null, Rate = null, DateAdded = DateTime.Now },
-                    new Book { Title = "Book 2", Description = "Description 2", IsRead = true, Genre = "Non-Fiction", Author = "Author 2", CoverURL = null, DateRead = DateTime.Now.AddDays(-10), Rate = 5, DateAdded = DateTime.Now }
+                    new Book { Title = "Book 10", Description = "Description 1", IsRead = false, Genre = "Fiction", CoverURL = null, DateRead = null, Rate = null, DateAdded = DateTime.Now },
+                    new Book { Title = "Book 2", Description = "Description 2", IsRead = true, Genre = "Non-Fiction", CoverURL = null, DateRead = DateTime.Now.AddDays(-10), Rate = 5, DateAdded = DateTime.Now }
                 );
                 context.SaveChanges();
             }
