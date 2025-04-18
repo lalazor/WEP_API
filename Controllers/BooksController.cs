@@ -32,7 +32,7 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
         }
 
         // GET: api/Books/{id}
-        [HttpGet("{id}")]
+        [HttpGet("get-book-by-id/{id}")]
         public IActionResult GetBookById(int id)
         {
             // Replace with actual logic to retrieve a book by ID
@@ -63,16 +63,21 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
         }
 
         // PUT: api/Books/{id}
-        [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] string book)
+        [HttpPut("update-book-by-id/{id}")]
+        public IActionResult UpdateBookById(int id, [FromBody] BookVM book)
         {
+            var updatedBook = _booksService.UpdateBookById(id, book);
+            if (updatedBook == null)
+            {
+                return NotFound($"Book with ID {id} not found.");
+            }
             // Replace with actual logic to update a book
-            if (id <= 0 || string.IsNullOrEmpty(book))
+            if (id <= 0 || book == null || string.IsNullOrEmpty(book.Title))
             {
                 return BadRequest("Invalid input.");
             }
 
-            return NoContent();
+            return Ok(updatedBook);
         }
 
         // DELETE: api/Books/{id}

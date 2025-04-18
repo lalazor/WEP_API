@@ -39,10 +39,25 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
             _context.Books.Add(newBook);
             _context.SaveChanges();
         }
-        public void UpdateBook(Book book)
+        public Book UpdateBookById(int bookId, BookVM book)
         {
-            _context.Books.Update(book);
+            var _existingBook = _context.Books.FirstOrDefault(b => b.Id == bookId);
+            if (_existingBook == null)
+            {
+                throw new KeyNotFoundException($"Book with ID {bookId} not found.");
+            }
+            _existingBook.Title = book.Title;
+            _existingBook.Author = book.Author;
+            _existingBook.Description = book.Description;
+            _existingBook.Genre = book.Genre;
+            _existingBook.DateRead = book.IsRead ? book.DateRead : null;
+            _existingBook.IsRead = book.IsRead;
+            _existingBook.Rate = book.IsRead && book.Rate.HasValue ? book.Rate.Value : null;
+            _existingBook.CoverURL = book.CoverURL;
+
+            _context.Books.Update(_existingBook);
             _context.SaveChanges();
+            return _existingBook;
         }
         public void DeleteBook(int id)
         {
