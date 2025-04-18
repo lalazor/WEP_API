@@ -16,5 +16,6 @@ namespace CompleteGuideToAspNetCoreWebApi.Data.Models
         //Navigation properties
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
+        public List<BookAuthor> BookAuthors { get; set; } 
     }
 }
