@@ -23,10 +23,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddTransient<BooksService>();
+builder.Services.AddTransient<AuthorsService>();
+builder.Services.AddTransient<PublishersService>();
 
 var app = builder.Build();
 
-AppDbInitializer.Seed(app); 
+//AppDbInitializer.Seed(app); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -53,13 +53,7 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
             _booksService.AddBook(book);
 
             return Ok();
-            // Replace with actual logic to create a book
-            // if (book == null || string.IsNullOrEmpty(book.Title))
-            // {
-            //     return BadRequest("Book cannot be empty.");
-            // }
-
-            // return CreatedAtAction(nameof(GetBookById), new { id = 1 }, book); // Example response
+            
         }
 
         // PUT: api/Books/{id}
