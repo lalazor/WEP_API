@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CompleteGuideToAspNetCoreWebApi.Data.Models;
 using CompleteGuideToAspNetCoreWebApi.Data.Models.ViewModels;
+using Microsoft.Identity.Client;
 
 namespace complete_guide_to_aspnetcore_web_api.Data.Services
 {
@@ -17,10 +18,30 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
         {
             return _context.Books.ToList();
         }
-        public Book GetBookById(int id)
+        public BookWithAuthorsVM GetBookById(int id)
         {
-            return _context.Books.FirstOrDefault(b => b.Id == id) 
-                   ?? throw new KeyNotFoundException($"Book with ID {id} not found.");
+            
+            
+                var _bookWithAuthors = _context.Books
+                    .Where(b => b.Id == id)
+                    .Select(b => new BookWithAuthorsVM
+                    {
+                        Title = b.Title,
+                        Description = b.Description,
+                        Genre = b.Genre,
+                        DateRead = b.DateRead,
+                        IsRead = b.IsRead,
+                        Rate = b.Rate,
+                        CoverURL = b.CoverURL,
+                        PublisherName = b.Publisher.Name,
+                        AuthorNames = b.BookAuthors
+                            .Select(ba => ba.Author.FullName)
+                            .ToList()
+                    })
+                    .FirstOrDefault();
+
+                return _bookWithAuthors;
+            
         }
         public void AddBookWithAuthors(BookVM book)
         {
