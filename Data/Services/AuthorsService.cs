@@ -21,5 +21,21 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
             _context.Authors.Add(_author);
             _context.SaveChanges();
         }
+
+        public AuthorWithBooksVM GetAuthorById(int id)
+        {
+            var _author = _context.Authors
+                .Where(a => a.Id == id)
+                .Select(a => new AuthorWithBooksVM
+                {
+                    FullName = a.FullName,
+                    BookTitles = a.BookAuthors
+                        .Select(ba => ba.Book.Title)
+                        .ToList()
+                })
+                .FirstOrDefault();
+
+            return _author;
+        }
     }
 }
