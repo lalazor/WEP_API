@@ -13,7 +13,7 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
         {
             _context = context;
         }
-        public IEnumerable<Book> GetAllBooks()
+        public List<Book> GetAllBooks()
         {
             return _context.Books.ToList();
         }

@@ -1,6 +1,8 @@
+using complete_guide_to_aspnetcore_web_api.Data;
 using complete_guide_to_aspnetcore_web_api.Data.Services;
 using CompleteGuideToAspNetCoreWebApi.Data.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 
 namespace complete_guide_to_aspnetcore_web_api.Controllers
@@ -18,11 +20,15 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
 
 
         // GET: api/Books
-        [HttpGet]
+        [HttpGet("get-all-books")]
         public IActionResult GetAllBooks()
         {
-            // Replace with actual logic to retrieve books
-            return Ok(new[] { "Book 1", "Book 2", "Book 3" });
+            var allBooks = _booksService.GetAllBooks();
+            if (allBooks == null || !allBooks.Any())
+            {
+                return NotFound("No books found.");
+            }
+            return Ok(allBooks);
         }
 
         // GET: api/Books/{id}
@@ -30,12 +36,13 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
         public IActionResult GetBookById(int id)
         {
             // Replace with actual logic to retrieve a book by ID
-            if (id <= 0)
+            var book = _booksService.GetBookById(id);
+            if (book == null)
             {
-                return NotFound();
+                return NotFound($"Book with ID {id} not found.");
             }
-
-            return Ok($"Book {id}");
+            
+            return Ok(book);
         }
 
         // POST: api/Books
