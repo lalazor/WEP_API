@@ -81,16 +81,11 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
         }
 
         // DELETE: api/Books/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeleteBook(int id)
+        [HttpDelete("delete-book-by-id/{id}")]
+        public IActionResult DeleteBookById(int id)
         {
-            // Replace with actual logic to delete a book
-            if (id <= 0)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
+            _booksService.DeleteBookById(id);
+            return Ok($"Book with ID {id} deleted successfully.");
         }
     }
 }

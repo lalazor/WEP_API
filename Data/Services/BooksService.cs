@@ -59,12 +59,12 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
             _context.SaveChanges();
             return _existingBook;
         }
-        public void DeleteBook(int id)
+        public void DeleteBookById(int id)
         {
-            var book = _context.Books.FirstOrDefault(b => b.Id == id);
-            if (book != null)
+            var _book = _context.Books.FirstOrDefault(b => b.Id == id);
+            if (_book != null)
             {
-                _context.Books.Remove(book);
+                _context.Books.Remove(_book);
                 _context.SaveChanges();
             }
             else
