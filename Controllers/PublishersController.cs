@@ -27,6 +27,19 @@ namespace complete_guide_to_aspnetcore_web_api.Controllers
             return Ok(new { Message = $"Publisher with ID {id}" });
         }
 
+
+        [HttpGet("get-publisher-books-with-authors-id/{id}")]
+        public IActionResult GetPublisherWithBooksAndAuthorsById(int id)
+        {
+            var publisher = _publishersService.GetPublisherData(id);
+            if (publisher == null)
+            {
+                return NotFound($"Publisher with ID {id} not found.");
+            }
+            return Ok(publisher);
+        }
+
+
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {

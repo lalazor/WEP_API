@@ -31,6 +31,8 @@ namespace complete_guide_to_aspnetcore_web_api.Data.Services
                     FullName = a.FullName,
                     BookTitles = a.BookAuthors
                         .Select(ba => ba.Book.Title)
+                        .Where(title => title != null)
+                        .Cast<string>()
                         .ToList()
                 })
                 .FirstOrDefault();
